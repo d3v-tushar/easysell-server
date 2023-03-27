@@ -24,18 +24,20 @@ const run = async () => {
     //Database
     const productsCollection = client.db("easysell-pos").collection("products");
 
-    //APIs
+    //All Products GET API
     app.get("/products", async (req, res) => {
       const query = {};
       const products = await productsCollection.find(query).toArray();
       res.send(products);
     });
 
+    //Added Product POST API
     app.post("/products", async (req, res) => {
       const product = req.body;
       const result = await productsCollection.insertOne(product);
       res.send(result);
     });
+
   } finally {
     // await client.close();
   }
